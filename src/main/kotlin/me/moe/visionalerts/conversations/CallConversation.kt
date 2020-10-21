@@ -7,6 +7,7 @@ import me.jakejmattson.discordkt.api.arguments.EveryArg
 import me.jakejmattson.discordkt.api.dsl.conversation
 import me.moe.visionalerts.dataclasses.Configuration
 import java.awt.Color
+import java.time.Instant
 
 class CallConversation(private val configuration: Configuration) {
     fun createConfigurationConversation(guild: Guild, channel: TextChannel, embedColor: Color) = conversation {
@@ -27,6 +28,8 @@ class CallConversation(private val configuration: Configuration) {
             if (!playDescription.toLowerCase().startsWith("none")) {
                 description = playDescription
             }
+
+            timestamp = Instant.now()
         }
         channel.createMessage("@everyone")
     }
