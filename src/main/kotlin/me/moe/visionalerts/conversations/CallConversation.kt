@@ -10,8 +10,15 @@ import java.awt.Color
 
 class CallConversation(private val configuration: Configuration) {
     fun createConfigurationConversation(guild: Guild, channel: TextChannel, embedColor: Color) = conversation {
-        val playName = promptMessage(EveryArg, "Alert:")
-        val playDescription = promptMessage(EveryArg, "Description (`none` to skip) :")
+        val playName = promptMessage(EveryArg, "Alert (`cancel` to end):")
+        if (playName.toLowerCase().startsWith("cancel")) {
+            return@conversation
+        }
+
+        val playDescription = promptMessage(EveryArg, "Description (`none` to skip or `cancel` to end) :")
+        if (playDescription.toLowerCase().startsWith("cancel")) {
+            return@conversation
+        }
 
         channel.createEmbed {
             color = embedColor
