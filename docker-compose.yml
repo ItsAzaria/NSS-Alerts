@@ -1,7 +1,7 @@
 version: '3.7'
 services:
-  starter:
-    container_name: Starter
+  visionalerts:
+    container_name: VisionAlerts
     build:
       dockerfile: Dockerfile
       context: .

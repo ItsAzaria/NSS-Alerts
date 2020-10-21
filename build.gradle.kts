@@ -1,8 +1,8 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-group = "me.ddivad"
+group = "me.moe"
 version = Versions.BOT
-description = "discordKt starter template"
+description = "Vision Alerts"
 
 plugins {
     kotlin("jvm") version "1.4.10"
@@ -24,10 +24,10 @@ tasks {
     }
 
     shadowJar {
-        archiveFileName.set("Starter.jar")
+        archiveFileName.set("VisionAlerts.jar")
         manifest {
             attributes(
-                    "Main-Class" to "me.ddivad.starter.MainKt"
+                    "Main-Class" to "me.moe.visionalerts.MainKt"
             )
         }
     }
@@ -36,5 +36,5 @@ tasks {
 
 object Versions {
     const val BOT = "1.0.0"
-    const val DISCORDKT = "0.20.0"
+    const val DISCORDKT = "0.21.0"
 }
