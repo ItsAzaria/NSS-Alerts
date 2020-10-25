@@ -96,4 +96,25 @@ fun callCommands(configuration: Configuration) = commands("Call Commands") {
             respond("All done!")
         }
     }
+
+    guildCommand("announcement") {
+        requiredPermissionLevel = Permission.EVERYONE
+        execute {
+
+            val guildConfiguration = configuration[guild.id.longValue] ?: return@execute
+            val outputChannel = guildConfiguration.userChannelLinks[author.id.longValue]
+
+            if (outputChannel == null) {
+                respond("${author.username} is not setup with a channel")
+                return@execute
+            }
+
+            val responseChannel = discord.api.getChannelOf<TextChannel>(Snowflake(outputChannel)) ?: return@execute
+            CallConversation(configuration)
+                    .createConfigurationConversation(guild, responseChannel, Color.decode("#800080"))
+                    .startPublicly(discord, author, channel.asChannel())
+
+            respond("All done!")
+        }
+    }
 }

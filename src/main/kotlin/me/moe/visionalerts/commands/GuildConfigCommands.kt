@@ -89,7 +89,7 @@ fun guildConfigCommands(configuration: Configuration) = commands("Configuration"
     guildCommand("unlink") {
         description = "unlink a user from a channel."
         requiredPermissionLevel = Permission.STAFF
-        execute(UserArg, ChannelArg) {
+        execute(UserArg) {
             val user = args.first
             val config = configuration[guild.id.longValue] ?: return@execute
 

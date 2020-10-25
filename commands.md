@@ -6,12 +6,13 @@
 | (Argument)  | Argument is not required.      |
 
 ## Call Commands
-| Commands | Arguments | Description      |
-| -------- | --------- | ---------------- |
-| entry    |           | <No Description> |
-| exit     |           | <No Description> |
-| trim     |           | <No Description> |
-| update   |           | <No Description> |
+| Commands     | Arguments | Description      |
+| ------------ | --------- | ---------------- |
+| announcement |           | <No Description> |
+| entry        |           | <No Description> |
+| exit         |           | <No Description> |
+| trim         |           | <No Description> |
+| update       |           | <No Description> |
 
 ## Configuration
 | Commands          | Arguments     | Description                    |
