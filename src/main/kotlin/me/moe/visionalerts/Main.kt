@@ -1,6 +1,9 @@
 package me.moe.visionalerts
 
 import com.gitlab.kordlib.common.entity.Snowflake
+import com.gitlab.kordlib.gateway.Intent
+import com.gitlab.kordlib.gateway.Intents
+import com.gitlab.kordlib.gateway.PrivilegedIntent
 import me.moe.visionalerts.dataclasses.Configuration
 import me.moe.visionalerts.services.BotStatsService
 import me.moe.visionalerts.services.PermissionsService
@@ -8,6 +11,7 @@ import me.jakejmattson.discordkt.api.dsl.bot
 import me.moe.visionalerts.extensions.requiredPermissionLevel
 import java.awt.Color
 
+@PrivilegedIntent
 suspend fun main() {
     val token = System.getenv("BOT_TOKEN") ?: null
     val prefix = System.getenv("DEFAULT_PREFIX") ?: "<none>"
@@ -35,7 +39,7 @@ suspend fun main() {
             color = it.discord.configuration.theme
 
             thumbnail {
-                url = api.getSelf().avatar.url
+                url = it.discord.api.getSelf().avatar.url
             }
 
             field {
@@ -88,6 +92,14 @@ suspend fun main() {
 
             val permissionsService = discord.getInjectionObjects(PermissionsService::class)
             return@permissions permissionsService.hasClearance(member, requiredPermissionLevel)
+        }
+
+        intents {
+            Intents.nonPrivileged.intents.forEach {
+                +it
+            }
+
+            +Intent.GuildMembers
         }
     }
 }

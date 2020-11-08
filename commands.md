@@ -22,7 +22,7 @@
 | setprefix         | Text          | Set the bot prefix.            |
 | setstaffrole      | Role          | Set the bot staff role.        |
 | setup             |               | Setup a guild to use this bot. |
-| unlink            | User, Channel | unlink a user from a channel.  |
+| unlink            | User          | unlink a user from a channel.  |
 
 ## Utility
 | Commands | Arguments | Description          |
