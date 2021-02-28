@@ -1,5 +1,6 @@
 package me.moe.visionalerts.commands
 
+import com.gitlab.kordlib.common.entity.Attachment
 import com.gitlab.kordlib.common.entity.Snowflake
 import com.gitlab.kordlib.core.behavior.channel.createMessage
 import com.gitlab.kordlib.core.entity.channel.TextChannel
@@ -12,11 +13,14 @@ import me.moe.visionalerts.services.Permission
 import java.awt.Color
 import java.time.Instant
 
-private fun getBuilder(description: String, color: Color): EmbedBuilder {
+private fun getBuilder(description: String, color: Color, attachment: Attachment? = null): EmbedBuilder {
     val builder = EmbedBuilder()
     builder.description = description
     builder.color = color
     builder.timestamp = Instant.now()
+//    if (attachment != null) {
+//        builder.image = attachment.url
+//    }
     builder.footer {
         text = "Stock VIP - Firm Handshakes"
         icon = "https://i.ibb.co/xYTTZd1/Stock-VIP-Logo.gif"

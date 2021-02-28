@@ -1,6 +1,7 @@
 package me.moe.visionalerts
 
 import com.gitlab.kordlib.common.entity.Snowflake
+import com.gitlab.kordlib.common.entity.Status
 import com.gitlab.kordlib.gateway.Intent
 import com.gitlab.kordlib.gateway.Intents
 import com.gitlab.kordlib.gateway.PrivilegedIntent
@@ -100,6 +101,10 @@ suspend fun main() {
             }
 
             +Intent.GuildMembers
+        }
+
+        presence {
+            status = Status.Invisible
         }
     }
 }
