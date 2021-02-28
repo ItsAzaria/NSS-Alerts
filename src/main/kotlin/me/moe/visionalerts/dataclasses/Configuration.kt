@@ -31,5 +31,6 @@ data class GuildConfiguration(
         var prefix: String,
         var commandChannel: Long,
         var staffRole: Long,
-        val userChannelLinks: MutableMap<Long, Long> = mutableMapOf()
+        val userChannelSwingLinks: MutableMap<Long, Long> = mutableMapOf(),
+        val userChannelScalpLinks: MutableMap<Long, Long> = mutableMapOf()
 )

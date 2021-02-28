@@ -1,7 +1,7 @@
 version: '3.7'
 services:
-  visionalerts:
-    container_name: VisionAlerts
+  stockvipalerts:
+    container_name: StockVIPAlerts
     build:
       dockerfile: Dockerfile
       context: .

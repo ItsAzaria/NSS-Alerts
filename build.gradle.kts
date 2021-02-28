@@ -24,7 +24,7 @@ tasks {
     }
 
     shadowJar {
-        archiveFileName.set("VisionAlerts.jar")
+        archiveFileName.set("StockVIPAlerts.jar")
         manifest {
             attributes(
                     "Main-Class" to "me.moe.visionalerts.MainKt"

@@ -1,10 +1,10 @@
 FROM gradle:6.5.1-jdk14 AS build
-COPY --chown=gradle:gradle . /starter
-WORKDIR /starter
+COPY --chown=gradle:gradle . /stockvipalerts
+WORKDIR /stockvipalerts
 RUN gradle shadowJar --no-daemon
 
 FROM openjdk:11.0.8-jre-slim
 RUN mkdir /config/
-COPY --from=build /starter/build/libs/*.jar /
+COPY --from=build /stockvipalerts/build/libs/*.jar /
 
-ENTRYPOINT ["java", "-jar", "/VisionAlerts.jar"]
+ENTRYPOINT ["java", "-jar", "/StockVIPAlerts.jar"]

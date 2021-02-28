@@ -1,120 +1,185 @@
 package me.moe.visionalerts.commands
 
 import com.gitlab.kordlib.common.entity.Snowflake
-import com.gitlab.kordlib.core.entity.channel.GuildChannel
+import com.gitlab.kordlib.core.behavior.channel.createMessage
 import com.gitlab.kordlib.core.entity.channel.TextChannel
-import me.jakejmattson.discordkt.api.arguments.AnyArg
+import com.gitlab.kordlib.rest.builder.message.EmbedBuilder
 import me.jakejmattson.discordkt.api.arguments.EveryArg
 import me.jakejmattson.discordkt.api.dsl.commands
-import me.moe.visionalerts.conversations.CallConversation
 import me.moe.visionalerts.dataclasses.Configuration
 import me.moe.visionalerts.extensions.requiredPermissionLevel
 import me.moe.visionalerts.services.Permission
 import java.awt.Color
+import java.time.Instant
+
+private fun getBuilder(description: String, color: Color): EmbedBuilder {
+    val builder = EmbedBuilder()
+    builder.description = description
+    builder.color = color
+    builder.timestamp = Instant.now()
+    builder.footer {
+        text = "Stock VIP - Firm Handshakes"
+        icon = "https://i.ibb.co/xYTTZd1/Stock-VIP-Logo.gif"
+    }
+
+    return builder
+}
 
 fun callCommands(configuration: Configuration) = commands("Call Commands") {
-    guildCommand("entry") {
+    val mentionRole = "<@&798344963384672358>"
+
+
+    // ENTRY
+    guildCommand("scalpentry") {
         requiredPermissionLevel = Permission.EVERYONE
-        execute {
+        execute(EveryArg) {
 
             val guildConfiguration = configuration[guild.id.longValue] ?: return@execute
-            val outputChannel = guildConfiguration.userChannelLinks[author.id.longValue]
+            val outputChannel = guildConfiguration.userChannelScalpLinks[author.id.longValue]
 
             if (outputChannel == null) {
-                respond("${author.username} is not setup with a channel")
+                respond("${author.username} is not setup with a scalp channel")
                 return@execute
             }
 
             val responseChannel = discord.api.getChannelOf<TextChannel>(Snowflake(outputChannel)) ?: return@execute
-            CallConversation(configuration)
-                    .createConfigurationConversation(guild, responseChannel, Color.GREEN)
-                    .startPublicly(discord, author, channel.asChannel())
+            val builder = getBuilder(args.first, Color.GREEN)
 
-            respond("All done!")
+            responseChannel.createMessage {
+                content = mentionRole
+                embed = builder
+            }
+
+            respond("Entry scalp sent!")
         }
     }
 
-    guildCommand("update") {
+    guildCommand("swingentry") {
         requiredPermissionLevel = Permission.EVERYONE
-        execute {
+        execute(EveryArg) {
 
             val guildConfiguration = configuration[guild.id.longValue] ?: return@execute
-            val outputChannel = guildConfiguration.userChannelLinks[author.id.longValue]
+            val outputChannel = guildConfiguration.userChannelSwingLinks[author.id.longValue]
 
             if (outputChannel == null) {
-                respond("${author.username} is not setup with a channel")
+                respond("${author.username} is not setup with a swing channel")
                 return@execute
             }
 
             val responseChannel = discord.api.getChannelOf<TextChannel>(Snowflake(outputChannel)) ?: return@execute
-            CallConversation(configuration)
-                    .createConfigurationConversation(guild, responseChannel, Color.ORANGE)
-                    .startPublicly(discord, author, channel.asChannel())
+            val builder = getBuilder(args.first, Color.GREEN)
 
-            respond("All done!")
+            responseChannel.createMessage {
+                content = mentionRole
+                embed = builder
+            }
+
+            respond("Entry swing sent!")
         }
     }
 
-    guildCommand("exit") {
+
+
+
+
+    // UPDATE
+    guildCommand("scalpupdate") {
         requiredPermissionLevel = Permission.EVERYONE
-        execute {
+        execute(EveryArg) {
 
             val guildConfiguration = configuration[guild.id.longValue] ?: return@execute
-            val outputChannel = guildConfiguration.userChannelLinks[author.id.longValue]
+            val outputChannel = guildConfiguration.userChannelScalpLinks[author.id.longValue]
 
             if (outputChannel == null) {
-                respond("${author.username} is not setup with a channel")
+                respond("${author.username} is not setup with a scalp channel")
                 return@execute
             }
 
             val responseChannel = discord.api.getChannelOf<TextChannel>(Snowflake(outputChannel)) ?: return@execute
-            CallConversation(configuration)
-                    .createConfigurationConversation(guild, responseChannel, Color.RED)
-                    .startPublicly(discord, author, channel.asChannel())
+            val builder = getBuilder(args.first, Color.ORANGE)
 
-            respond("All done!")
+            responseChannel.createMessage {
+                content = mentionRole
+                embed = builder
+            }
+
+            respond("Update scalp sent!")
         }
     }
 
-    guildCommand("trim") {
+    guildCommand("swingupdate") {
         requiredPermissionLevel = Permission.EVERYONE
-        execute {
+        execute(EveryArg) {
 
             val guildConfiguration = configuration[guild.id.longValue] ?: return@execute
-            val outputChannel = guildConfiguration.userChannelLinks[author.id.longValue]
+            val outputChannel = guildConfiguration.userChannelSwingLinks[author.id.longValue]
 
             if (outputChannel == null) {
-                respond("${author.username} is not setup with a channel")
+                respond("${author.username} is not setup with a swing channel")
                 return@execute
             }
 
             val responseChannel = discord.api.getChannelOf<TextChannel>(Snowflake(outputChannel)) ?: return@execute
-            CallConversation(configuration)
-                    .createConfigurationConversation(guild, responseChannel, Color.decode("#FFCCCB"))
-                    .startPublicly(discord, author, channel.asChannel())
+            val builder = getBuilder(args.first, Color.ORANGE)
 
-            respond("All done!")
+            responseChannel.createMessage {
+                content = mentionRole
+                embed = builder
+            }
+
+            respond("Update swing sent!")
         }
     }
 
-    guildCommand("announcement") {
+
+
+
+    // EXIT
+    guildCommand("scalpexit") {
         requiredPermissionLevel = Permission.EVERYONE
-        execute {
+        execute(EveryArg) {
 
             val guildConfiguration = configuration[guild.id.longValue] ?: return@execute
-            val outputChannel = guildConfiguration.userChannelLinks[author.id.longValue]
+            val outputChannel = guildConfiguration.userChannelScalpLinks[author.id.longValue]
 
             if (outputChannel == null) {
-                respond("${author.username} is not setup with a channel")
+                respond("${author.username} is not setup with a scalp channel")
                 return@execute
             }
 
             val responseChannel = discord.api.getChannelOf<TextChannel>(Snowflake(outputChannel)) ?: return@execute
-            CallConversation(configuration)
-                    .createConfigurationConversation(guild, responseChannel, Color.decode("#800080"))
-                    .startPublicly(discord, author, channel.asChannel())
+            val builder = getBuilder(args.first, Color.RED)
 
-            respond("All done!")
+            responseChannel.createMessage {
+                content = mentionRole
+                embed = builder
+            }
+
+            respond("Exit scalp sent!")
+        }
+    }
+
+    guildCommand("swingexit") {
+        requiredPermissionLevel = Permission.EVERYONE
+        execute(EveryArg) {
+
+            val guildConfiguration = configuration[guild.id.longValue] ?: return@execute
+            val outputChannel = guildConfiguration.userChannelSwingLinks[author.id.longValue]
+
+            if (outputChannel == null) {
+                respond("${author.username} is not setup with a swing channel")
+                return@execute
+            }
+
+            val responseChannel = discord.api.getChannelOf<TextChannel>(Snowflake(outputChannel)) ?: return@execute
+            val builder = getBuilder(args.first, Color.RED)
+
+            responseChannel.createMessage {
+                content = mentionRole
+                embed = builder
+            }
+
+            respond("Exit swing sent!")
         }
     }
 }

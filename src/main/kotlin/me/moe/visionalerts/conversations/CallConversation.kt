@@ -32,5 +32,8 @@ class CallConversation(private val configuration: Configuration) {
             timestamp = Instant.now()
         }
         channel.createMessage("@everyone")
+
+
+
     }
 }
