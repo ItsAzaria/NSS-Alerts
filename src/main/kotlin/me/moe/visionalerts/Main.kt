@@ -104,7 +104,7 @@ suspend fun main() {
         }
 
         presence {
-            status = Status.Invisible
+            status = Status.Offline
         }
     }
 }
