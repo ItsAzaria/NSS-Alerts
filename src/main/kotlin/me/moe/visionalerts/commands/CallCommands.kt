@@ -3,6 +3,7 @@ package me.moe.visionalerts.commands
 import com.gitlab.kordlib.common.entity.Attachment
 import com.gitlab.kordlib.common.entity.Snowflake
 import com.gitlab.kordlib.core.behavior.channel.createMessage
+import com.gitlab.kordlib.core.entity.User
 import com.gitlab.kordlib.core.entity.channel.TextChannel
 import com.gitlab.kordlib.rest.builder.message.EmbedBuilder
 import me.jakejmattson.discordkt.api.arguments.EveryArg
@@ -13,11 +14,15 @@ import me.moe.visionalerts.services.Permission
 import java.awt.Color
 import java.time.Instant
 
-private fun getBuilder(description: String, color: Color, attachment: Attachment? = null): EmbedBuilder {
+private fun getBuilder(description: String, color: Color, author: User, attachment: Attachment? = null): EmbedBuilder {
     val builder = EmbedBuilder()
     builder.description = description
     builder.color = color
     builder.timestamp = Instant.now()
+    builder.author {
+        name = author.username
+        icon = author.avatar.url
+    }
 //    if (attachment != null) {
 //        builder.image = attachment.url
 //    }
@@ -47,7 +52,7 @@ fun callCommands(configuration: Configuration) = commands("Call Commands") {
             }
 
             val responseChannel = discord.api.getChannelOf<TextChannel>(Snowflake(outputChannel)) ?: return@execute
-            val builder = getBuilder(args.first, Color.GREEN)
+            val builder = getBuilder(args.first, Color.GREEN, author)
 
             responseChannel.createMessage {
                 content = mentionRole
@@ -71,7 +76,7 @@ fun callCommands(configuration: Configuration) = commands("Call Commands") {
             }
 
             val responseChannel = discord.api.getChannelOf<TextChannel>(Snowflake(outputChannel)) ?: return@execute
-            val builder = getBuilder(args.first, Color.GREEN)
+            val builder = getBuilder(args.first, Color.GREEN, author)
 
             responseChannel.createMessage {
                 content = mentionRole
@@ -100,7 +105,7 @@ fun callCommands(configuration: Configuration) = commands("Call Commands") {
             }
 
             val responseChannel = discord.api.getChannelOf<TextChannel>(Snowflake(outputChannel)) ?: return@execute
-            val builder = getBuilder(args.first, Color.ORANGE)
+            val builder = getBuilder(args.first, Color.ORANGE, author)
 
             responseChannel.createMessage {
                 content = mentionRole
@@ -124,7 +129,7 @@ fun callCommands(configuration: Configuration) = commands("Call Commands") {
             }
 
             val responseChannel = discord.api.getChannelOf<TextChannel>(Snowflake(outputChannel)) ?: return@execute
-            val builder = getBuilder(args.first, Color.ORANGE)
+            val builder = getBuilder(args.first, Color.ORANGE, author)
 
             responseChannel.createMessage {
                 content = mentionRole
@@ -152,7 +157,7 @@ fun callCommands(configuration: Configuration) = commands("Call Commands") {
             }
 
             val responseChannel = discord.api.getChannelOf<TextChannel>(Snowflake(outputChannel)) ?: return@execute
-            val builder = getBuilder(args.first, Color.RED)
+            val builder = getBuilder(args.first, Color.RED, author)
 
             responseChannel.createMessage {
                 content = mentionRole
@@ -176,7 +181,7 @@ fun callCommands(configuration: Configuration) = commands("Call Commands") {
             }
 
             val responseChannel = discord.api.getChannelOf<TextChannel>(Snowflake(outputChannel)) ?: return@execute
-            val builder = getBuilder(args.first, Color.RED)
+            val builder = getBuilder(args.first, Color.RED, author)
 
             responseChannel.createMessage {
                 content = mentionRole
