@@ -67,79 +67,41 @@ fun guildConfigCommands(configuration: Configuration) = commands("Configuration"
         }
     }
 
-    guildCommand("linkscalp") {
+    guildCommand("link") {
         description = "Link a user to a channel."
         requiredPermissionLevel = Permission.STAFF
         execute(UserArg, ChannelArg) {
             val (user, channel) = args
             val config = configuration[guild.id.longValue] ?: return@execute
 
-            if (config.userChannelScalpLinks.containsKey(user.id.longValue)) {
-                respond("${user.username} is already linked to a scalp channel.")
+            if (config.userChannelLinks.containsKey(user.id.longValue)) {
+                respond("${user.username} is already linked to a channel.")
                 return@execute
             }
 
-            config.userChannelScalpLinks[user.id.longValue] = channel.id.longValue
+            config.userChannelLinks[user.id.longValue] = channel.id.longValue
             configuration.save()
 
-            respond("${user.username}'s scalps are now linked to ${channel.mention}")
+            respond("${user.username} is now linked to ${channel.mention}")
         }
     }
 
-    guildCommand("unlinkscalp") {
+    guildCommand("unlink") {
         description = "unlink a user from a channel."
         requiredPermissionLevel = Permission.STAFF
         execute(UserArg) {
             val user = args.first
             val config = configuration[guild.id.longValue] ?: return@execute
 
-            if (!config.userChannelScalpLinks.containsKey(user.id.longValue)) {
-                respond("${user.username} is not linked to any scalp channels.")
+            if (!config.userChannelLinks.containsKey(user.id.longValue)) {
+                respond("${user.username} is not linked to any channels.")
                 return@execute
             }
 
-            config.userChannelScalpLinks.remove(user.id.longValue)
+            config.userChannelLinks.remove(user.id.longValue)
             configuration.save()
 
-            respond("${user.username} is now not linked to a scalp channel")
-        }
-    }
-
-    guildCommand("linkswing") {
-        description = "Link a user to a channel."
-        requiredPermissionLevel = Permission.STAFF
-        execute(UserArg, ChannelArg) {
-            val (user, channel) = args
-            val config = configuration[guild.id.longValue] ?: return@execute
-
-            if (config.userChannelSwingLinks.containsKey(user.id.longValue)) {
-                respond("${user.username} is already linked to a swing channel.")
-                return@execute
-            }
-
-            config.userChannelSwingLinks[user.id.longValue] = channel.id.longValue
-            configuration.save()
-
-            respond("${user.username}'s swings are now linked to ${channel.mention}")
-        }
-    }
-
-    guildCommand("unlinkswing") {
-        description = "unlink a user from a channel."
-        requiredPermissionLevel = Permission.STAFF
-        execute(UserArg) {
-            val user = args.first
-            val config = configuration[guild.id.longValue] ?: return@execute
-
-            if (!config.userChannelSwingLinks.containsKey(user.id.longValue)) {
-                respond("${user.username} is not linked to any swing channels.")
-                return@execute
-            }
-
-            config.userChannelSwingLinks.remove(user.id.longValue)
-            configuration.save()
-
-            respond("${user.username} is now not linked to a swing channel")
+            respond("${user.username} is now unlinked from channels")
         }
     }
 }

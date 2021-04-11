@@ -1,17 +1,14 @@
 version: '3.7'
 services:
   stockvipalerts:
-    container_name: StockVIPAlerts
+    container_name: NSSAlerts
     build:
       dockerfile: Dockerfile
       context: .
     volumes:
       - type: bind
-        source: ./config/config.json
-        target: /config/config.json
+        source: ./config
+        target: /config
     restart: always
     env_file:
       - .env
-
-volumes:
-  app:
