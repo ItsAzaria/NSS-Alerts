@@ -24,10 +24,6 @@ private fun getBuilder(description: String, color: Color, author: User, attachme
         icon = author.avatar.url
     }
 
-    if (attachment != null && attachment.isImage) {
-        builder.image = attachment.url
-    }
-
     builder.footer {
         text = "Non-Stop Signaling"
     }
@@ -55,7 +51,7 @@ fun callCommands(configuration: Configuration) = commands("Call Commands") {
             }
 
             val responseChannel = discord.api.getChannelOf<TextChannel>(Snowflake(outputChannel)) ?: return@execute
-            val builder = getBuilder(args.first, Color.GREEN, author, message.attachments.firstOrNull())
+            val builder = getBuilder(args.first, Color.GREEN, author)
 
             responseChannel.createMessage {
                 if (token != null)
